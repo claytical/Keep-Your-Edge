@@ -1,0 +1,7 @@
+<name>Example</name>
+<author>Clay Ewing</author>
+<complete>20</complete>
+<speed>-1</speed>
+<multiplier>1.01</multiplier>
+<file>triangle.xml</file>
+<file>small.xml</file>
