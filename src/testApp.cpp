@@ -146,6 +146,7 @@ void testApp::update(){
     //now we go for specific states
     switch (gameState) {
         case WAITING_TO_PLAY:
+            speed = -1;
             break;
         case CREDITS:
             break;
@@ -155,7 +156,6 @@ void testApp::update(){
             gui->setVisible(false);
             won = false;
             currentPattern = 0;
-            speed = -1;
             progressMarker = 0;
             achievedHighScore = false;
             gameState = PLAYING;
