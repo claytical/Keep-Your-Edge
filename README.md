@@ -24,3 +24,7 @@ The complete number is the amount of edges you need to collect to get to the end
 <file>triangle.xml</file>
 <file>pattern.xml</file>
 ```
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/claytical/keep-your-edge-osx/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
