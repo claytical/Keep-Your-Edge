@@ -14,7 +14,7 @@ Using the level editor, you can create a pattern.xml file. This pattern contains
 ## Level File
 The level file is pretty self explanatory.
 The complete number is the amount of edges you need to collect to get to the end of the level. Speed is negative because everything comes from the top down. The multiplier increments the speed each time the set of files has been ran through.
-
+```
 <name>Name of Level</name>
 <author>You</author>
 <complete>20</complete>
@@ -23,3 +23,4 @@ The complete number is the amount of edges you need to collect to get to the end
 <file>small.xml</file>
 <file>triangle.xml</file>
 <file>pattern.xml</file>
+```
