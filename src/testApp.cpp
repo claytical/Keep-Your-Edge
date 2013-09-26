@@ -56,14 +56,13 @@ void testApp::setup(){
     
     enemySound.loadSound("bad.aif");
     movementSound.loadSound("click.aif");
-    collectableSound.loadSound("fiji.aiff");
+    collectableSound.loadSound("climb.aif");
     movingSound.loadSound("click.aiff");
     movementSound.setVolume(.2);
     movingSound.setVolume(.2);
     collectableSound.setVolume(.2);
-    backgroundMusic.loadSound("trancebg.aiff");
+    backgroundMusic.loadSound("drum_loop3.aif");
     backgroundMusic.setLoop(true);
-//    backgroundMusic.play();
     gameState = WAITING_TO_PLAY;
     currentPattern = 0;
     backgroundMusic.setVolume(1);
@@ -92,6 +91,7 @@ void testApp::loadLevel(string levelName) {
         cout << "Loading " << levelName << endl;
 
         speed = XML.getValue("speed", -1);
+        backgroundMusic.setSpeed(abs(speed));
         multiplier = XML.getValue("multiplier", 1.08);
         completionAmount = XML.getValue("complete", 10) * 4;
         for (int i = 0; i < XML.getNumTags("file"); i++) {
@@ -113,6 +113,7 @@ void testApp::loadPattern(int pattern) {
     
     //load enemies
     speed *= multiplier;
+    backgroundMusic.setSpeed(abs(speed));
     
     for (int i = 0; i < XML.getNumTags("enemy"); i++) {
         Enemy tmpEnemy;
@@ -147,6 +148,7 @@ void testApp::update(){
     switch (gameState) {
         case WAITING_TO_PLAY:
             speed = -1;
+            backgroundMusic.stop();
             break;
         case CREDITS:
             break;
@@ -158,6 +160,7 @@ void testApp::update(){
             currentPattern = 0;
             progressMarker = 0;
             achievedHighScore = false;
+            backgroundMusic.play();
             gameState = PLAYING;
             break;
         case PLAYING:
@@ -182,6 +185,8 @@ void testApp::update(){
                 
                 if (collectables[i].collected == false) {
                     if (protagonist.collide(collectables[i])) {
+                        float pitch = ofMap(collectables[i].width, 5, ofGetWidth(), 5, .02);
+                        collectableSound.setSpeed(pitch);
                         collectableSound.play();
                         collectables[i].collected = true;
                     }

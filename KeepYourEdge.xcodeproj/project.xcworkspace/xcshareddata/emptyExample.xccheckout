@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>A7E8DCD6-F7FE-4900-8CDA-C108F8A8E5CB</string>
+	<key>IDESourceControlProjectName</key>
+	<string>emptyExample</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E2B372E3-F826-4229-8D13-AE591B21FEB4</key>
+		<string>https://github.com/claytical/Keep-Your-Edge-OSX.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>emptyExample.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E2B372E3-F826-4229-8D13-AE591B21FEB4</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/claytical/Keep-Your-Edge-OSX.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E2B372E3-F826-4229-8D13-AE591B21FEB4</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E2B372E3-F826-4229-8D13-AE591B21FEB4</string>
+			<key>IDESourceControlWCCName</key>
+			<string>KeepYourEdge</string>
+		</dict>
+	</array>
+</dict>
+</plist>
