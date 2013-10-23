@@ -10,6 +10,7 @@
 void Savior::display() {
     ofNoFill();
     ofSetColor(r, g, b, 200);
+//    ofRect(x, y, SAVIOR_RADIUS/4, SAVIOR_RADIUS/4);
     ofRect(x + SAVIOR_RADIUS/2, y + SAVIOR_RADIUS/2, SAVIOR_RADIUS/4, SAVIOR_RADIUS/4);
 }
 

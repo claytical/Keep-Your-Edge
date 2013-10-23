@@ -26,7 +26,6 @@ class testApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
         void loadLevel(string levelName);
-//        NSString * getLevelName(NSString *levelFile);
         vector<string>patterns;
         
         static bool consumed(Savior &savior);

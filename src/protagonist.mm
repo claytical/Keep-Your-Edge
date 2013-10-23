@@ -87,8 +87,8 @@ void Protagonist::display() {
 
 void Protagonist::moveTo(int xPos, int yPos) {
 //creep up on the spot
-    x += (xPos - x) * .1;
-    y += (yPos - y) * .1;
+    x += (xPos - x) * .2;
+    y += (yPos - y) * .2;
 
     edges[0].set(x, y);
     edges[1].set(x+width, y);
@@ -102,7 +102,7 @@ void Protagonist::create(int _x, int _y, int _size) {
     r = 255;
     g = 255;
     b = 255;
-    collectableSound.loadSound("click.aif");
+    collectableSound.loadSound("edge.wav");
     
     collectableSound.setVolume(.2);
 
@@ -148,7 +148,6 @@ bool Protagonist::collide(Enemy e) {
     //enemy is circle
     //protagonist is square
 
-//    Enemy X - Protagonist X + Protagonist width / 2
     if (ofDist(e.x, e.y, x, y) <= e.radius || ofDist(e.x, e.y, x + width, y + height) <= e.radius) {
         return true;
     }

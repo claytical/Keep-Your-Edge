@@ -7,18 +7,21 @@
 #define CREDITS         5
 #define GAME_CENTER     6
 #define WON_TRACK       7
+#define SPACE_BETWEEN_PATTERNS  -300
+
 //--------------------------------------------------------------
 void testApp::setup(){
+    
     float xInit = OFX_UI_GLOBAL_WIDGET_SPACING;
     float length = 320;
     gui = new ofxUICanvas();
     gui->setFont("cdb.ttf");
-    dir.allowExt("level");
+    dir.allowExt("level"); //only allow .level files
     dir.listDir("levels/");
 	dir.sort(); // in linux the file system doesn't return file lists ordered in alphabetical order
     vector<string> levels;
     
-	// you can now iterate through the files and load them into the ofImage vector
+	// run through each level file and add it to the levels vector
 	for(int i = 0; i < (int)dir.size(); i++){
         levels.push_back(dir.getFile(i).getBaseName());
 	}
@@ -53,47 +56,43 @@ void testApp::setup(){
     ofEnableSmoothing();
     ofEnableAlphaBlending();
     
-    
+/* load sound effects */
     enemySound.loadSound("bad.aif");
-    movementSound.loadSound("click.aif");
-    collectableSound.loadSound("climb.aif");
-    movingSound.loadSound("click.aiff");
+    movementSound.loadSound("click.wav");
+    collectableSound.loadSound("square.wav");
+    movingSound.loadSound("click.wav");
+/* turn the volume down for effects */
     movementSound.setVolume(.2);
     movingSound.setVolume(.2);
     collectableSound.setVolume(.2);
-    backgroundMusic.loadSound("drum_loop3.aif");
+    
+/* load the background music */
+    backgroundMusic.loadSound("loop.wav");
     backgroundMusic.setLoop(true);
+    backgroundMusic.setVolume(1);
+
     gameState = WAITING_TO_PLAY;
     currentPattern = 0;
-    backgroundMusic.setVolume(1);
-//    gameState = NEW_GAME;
-//    [Flurry startSession:@"Z8Q3945CDT8VYXM2BSVP"];
 
 }
-/*
-NSString * testApp::getLevelName(NSString * levelFile) {
-    if (XML.loadFile(ofxNSStringToString(levelFile))) {
-        
-        return ofxStringToNSString(XML.getValue("name", "Level"));
-    }
-    return @"error";
-}
-*/
+
 
 //--------------------------------------------------------------
 void testApp::loadLevel(string levelName) {
-  //  [Flurry logEvent:ofxStringToNSString(levelName) timed:YES];
+    //initialize our protagonist in the center of the screen
     protagonist.create(ofGetWidth()/2, ofGetHeight()/2, 25);
+    //clear any existing patterns, enemies, and collectables
     patterns.clear();
     enemies.clear();
     collectables.clear();
+    //load the level
     if (XML.loadFile(levelName)) {
-        cout << "Loading " << levelName << endl;
 
+        //load values from the xml files, use defaults if they don't exist
         speed = XML.getValue("speed", -1);
-        backgroundMusic.setSpeed(abs(speed));
+//        backgroundMusic.setSpeed(abs(speed));
         multiplier = XML.getValue("multiplier", 1.08);
-        completionAmount = XML.getValue("complete", 10) * 4;
+        completionAmount = XML.getValue("complete", 10);
         for (int i = 0; i < XML.getNumTags("file"); i++) {
             string filename = XML.getValue("file", "error.xml", i);
             cout << "Loading " << filename << endl;
@@ -105,19 +104,18 @@ void testApp::loadLevel(string levelName) {
 //--------------------------------------------------------------
 
 void testApp::loadPattern(int pattern) {
-    cout << "loading " << patterns[pattern] << endl;
     if( XML.loadFile(patterns[pattern]) ){
-        
-  //      NSLog(@"Loaded Pattern %s", patterns[pattern].c_str());
+        // if successful, run any additional code here
     }
     
-    //load enemies
     speed *= multiplier;
-    backgroundMusic.setSpeed(abs(speed));
-    
+  //  backgroundMusic.setSpeed(abs(speed));
+
+    //load enemies
+
     for (int i = 0; i < XML.getNumTags("enemy"); i++) {
         Enemy tmpEnemy;
-        tmpEnemy.create(XML.getValue("enemy:x", 0, i), XML.getValue("enemy:y", 0, i), speed, XML.getValue("enemy:size", 0, i));
+        tmpEnemy.create(XML.getValue("enemy:x", 0, i), XML.getValue("enemy:y", 0, i) + SPACE_BETWEEN_PATTERNS, speed, XML.getValue("enemy:size", 0, i));
         enemies.push_back(tmpEnemy);
         
     }
@@ -125,7 +123,7 @@ void testApp::loadPattern(int pattern) {
     //load collectables
     for (int i = 0; i < XML.getNumTags("collectable"); i++) {
         Collectable tmpCollectable;
-        tmpCollectable.create(XML.getValue("collectable:x", 0, i), XML.getValue("collectable:y", 0, i), speed, XML.getValue("collectable:size", 0, i));
+        tmpCollectable.create(XML.getValue("collectable:x", 0, i), XML.getValue("collectable:y", 0, i) + SPACE_BETWEEN_PATTERNS, speed, XML.getValue("collectable:size", 0, i));
         collectables.push_back(tmpCollectable);
         
     }
@@ -134,7 +132,8 @@ void testApp::loadPattern(int pattern) {
 
 //--------------------------------------------------------------
 void testApp::update(){
-    //this is our crazy control scheme that will be used everywhere
+    //if we allow more saviors to be created, this creates a pretty interesting and ... possibly confusing control scheme
+    //saviors are what get placed when you touch the screen and the protagonist is attracted to them.
     if (saviors.size() > 0) {
         
         protagonist.moveTo(saviors[0].x, saviors[0].y);
@@ -143,7 +142,9 @@ void testApp::update(){
             saviors[0].consumed = true;
         }
     }
+    //remove the point once reached
     ofRemove(saviors, consumed);
+
     //now we go for specific states
     switch (gameState) {
         case WAITING_TO_PLAY:
@@ -198,13 +199,6 @@ void testApp::update(){
                 gameState = GAME_OVER;
                 gameOverGui->setVisible(true);
 
-                /*  if (score > [[userSettings valueForKey:@"highest_score"] intValue]) {
-                 NSLog(@"New High Score, writing...");
-                 achievedHighScore = true;
-                 [userSettings setValue:[NSString stringWithFormat:@"%i", score] forKey:@"highest_score"];
-                 [userSettings synchronize];
-                 }
-                 */
             }
             
             if (progressMarker >= completionAmount) {
@@ -259,7 +253,8 @@ void testApp::draw(){
             
             ofSetColor(0, 0, 0);
             ofFill();
-            ofRect(0, ofGetHeight() - 40, ofGetWidth(), 40);
+            //going extra long in case of retina
+            ofRect(0, ofGetHeight() - 40, ofGetWidth()*2, 60);
             ofSetColor(255, 255, 255);
             textSmall.drawString("EDGES " + ofToString(progressMarker) + " / " + ofToString(completionAmount), 20, ofGetHeight() - 30);
             break;
@@ -309,9 +304,11 @@ void testApp::mousePressed(int x, int y, int button){
     if (y <= ofGetHeight() - 60) {
         Savior tmpSavior;
         tmpSavior.create(x,y);
-        
+        //comment this out for a weird control scheme :)
+        saviors.clear();
+        // end
         saviors.push_back(tmpSavior);
-        movementSound.play();
+       // movementSound.play();
     }
 }
 

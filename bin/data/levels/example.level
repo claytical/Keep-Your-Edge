@@ -1,7 +1,6 @@
-<name>Example</name>
+<name>Square Test</name>
 <author>Clay Ewing</author>
 <complete>20</complete>
-<speed>-66</speed>
+<speed>-1</speed>
 <multiplier>1.01</multiplier>
-<file>triangle.xml</file>
 <file>small.xml</file>
