@@ -1,0 +1,22 @@
+<collectable>
+    <x>260.000000000</x>
+    <y>-250.000000000</y>
+    <type>1</type>
+    <size>56</size>
+</collectable>
+<collectable>
+    <x>60.000000000</x>
+    <y>-270.000000000</y>
+    <size>56</size>
+</collectable>
+<enemy>
+    <x>130.000000000</x>
+    <y>-360.000000000</y>
+    <type>1</type>
+    <size>33</size>
+</enemy>
+<collectable>
+    <x>130.000000000</x>
+    <y>-120.000000000</y>
+    <size>33</size>
+</collectable>

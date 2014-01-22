@@ -1,0 +1,35 @@
+<level>
+    <name>New Level</name>
+    <speed>1</speed>
+</level>
+<collectable>
+    <x>90.000000000</x>
+    <y>-150.000000000</y>
+    <type>1</type>
+    <size>140.000000000</size>
+</collectable>
+<collectable>
+    <x>10.000000000</x>
+    <y>-230.000000000</y>
+    <size>70.000000000</size>
+</collectable>
+<collectable>
+    <x>240.000000000</x>
+    <y>-230.000000000</y>
+    <size>70.000000000</size>
+</collectable>
+<collectable>
+    <x>120.000000000</x>
+    <y>-320.000000000</y>
+    <size>80.000000000</size>
+</collectable>
+<collectable>
+    <x>120.000000000</x>
+    <y>-410.000000000</y>
+    <size>80.000000000</size>
+</collectable>
+<collectable>
+    <x>120.000000000</x>
+    <y>-500.000000000</y>
+    <size>80.000000000</size>
+</collectable>

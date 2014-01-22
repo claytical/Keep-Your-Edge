@@ -1,0 +1,42 @@
+<collectable>
+    <x>40.000000000</x>
+    <y>-260.000000000</y>
+    <type>1</type>
+    <size>42</size>
+</collectable>
+<collectable>
+    <x>270.000000000</x>
+    <y>-260.000000000</y>
+    <size>42</size>
+</collectable>
+<collectable>
+    <x>160.000000000</x>
+    <y>-170.000000000</y>
+    <size>51</size>
+</collectable>
+<collectable>
+    <x>160.000000000</x>
+    <y>-350.000000000</y>
+    <size>51</size>
+</collectable>
+<enemy>
+    <x>150.000000000</x>
+    <y>-260.000000000</y>
+    <type>1</type>
+    <size>58</size>
+</enemy>
+<enemy>
+    <x>50.000000000</x>
+    <y>-380.000000000</y>
+    <size>26</size>
+</enemy>
+<enemy>
+    <x>280.000000000</x>
+    <y>-380.000000000</y>
+    <size>20</size>
+</enemy>
+<collectable>
+    <x>280.000000000</x>
+    <y>-150.000000000</y>
+    <size>16</size>
+</collectable>

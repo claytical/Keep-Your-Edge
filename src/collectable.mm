@@ -14,9 +14,9 @@ void Collectable::create(int _x, int _y, int _speed, float _size) {
     width = _size;
     height = _size;
     speed = _speed;
-    r = ofRandom(0,127);
-    g = ofRandom(127, 255);
-    b = ofRandom(127, 255);
+    r = 0;
+    g = ofRandom(255);
+    b = ofRandom(255);
     collected = false;
     
 }

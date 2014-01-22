@@ -35,6 +35,7 @@ class testApp : public ofBaseApp{
         
         void loadPattern(int pattern);
         ofxUICanvas *gui;
+   // ofxUIScrollableCanvas *gui;
         ofxUICanvas *gameOverGui;
         ofxUIDropDownList *ddl;
         ofxUILabel *titleLabel;
@@ -65,6 +66,7 @@ class testApp : public ofBaseApp{
         ofxCenteredTrueTypeFont textBig;
         ofxCenteredTrueTypeFont textSmall;
         bool won;
+        float score;
         int gameState;
         string selectedTrack;
         int currentPattern;

@@ -7,8 +7,13 @@
 #define CREDITS         5
 #define GAME_CENTER     6
 #define WON_TRACK       7
-#define SPACE_BETWEEN_PATTERNS  -300
+#define BACK_TO_MENU    8
+#define UNLOADING_LINES 9
+#define RESTART_LEVEL   10
+#define GAINING_MASS    11
 
+#define SPACE_BETWEEN_PATTERNS 0
+#define PROTAGONIST_SIZE    25
 //--------------------------------------------------------------
 void testApp::setup(){
     
@@ -55,22 +60,22 @@ void testApp::setup(){
     ofEnableTextureEdgeHack();
     ofEnableSmoothing();
     ofEnableAlphaBlending();
-    
-/* load sound effects */
-    enemySound.loadSound("bad.aif");
-    movementSound.loadSound("click.wav");
+    enemySound.loadSound("circle.wav");
+    movementSound.loadSound("click.caf");
     collectableSound.loadSound("square.wav");
     movingSound.loadSound("click.wav");
+    gameState = WAITING_TO_PLAY;
+    currentPattern = 0;
+    backgroundMusic.setVolume(1);
+    collectableSound.setVolume(.2);
+
+/* load sound effects */
 /* turn the volume down for effects */
     movementSound.setVolume(.2);
     movingSound.setVolume(.2);
     collectableSound.setVolume(.2);
     
 /* load the background music */
-    backgroundMusic.loadSound("loop.wav");
-    backgroundMusic.setLoop(true);
-    backgroundMusic.setVolume(1);
-
     gameState = WAITING_TO_PLAY;
     currentPattern = 0;
 
@@ -144,6 +149,10 @@ void testApp::update(){
     }
     //remove the point once reached
     ofRemove(saviors, consumed);
+    int bgSelection = int(ofRandom(1, 4));
+    if (bgSelection == 4) {
+        bgSelection = 3;
+    }
 
     //now we go for specific states
     switch (gameState) {
@@ -158,6 +167,12 @@ void testApp::update(){
         case NEW_GAME:
             gui->setVisible(false);
             won = false;
+            backgroundMusic.loadSound("bg"+ofToString(bgSelection)+".wav");
+            
+            backgroundMusic.setLoop(true);
+            backgroundMusic.setVolume(1);
+            score = 0;
+        
             currentPattern = 0;
             progressMarker = 0;
             achievedHighScore = false;
@@ -165,6 +180,7 @@ void testApp::update(){
             gameState = PLAYING;
             break;
         case PLAYING:
+            score+= .25;
             ofRemove(collectables, collected);
             ofRemove(enemies, passedGateway);
             if (enemies.size() <= 0 && collectables.size() <= 0) {
@@ -194,27 +210,57 @@ void testApp::update(){
                 }
             }
             
-            
             if (protagonist.sides == DEAD) {
-                gameState = GAME_OVER;
-                gameOverGui->setVisible(true);
-
+                gameState = UNLOADING_LINES;
+                protagonist.reverseAnimatedLine[0] = protagonist.edges[0].y;
+                protagonist.reverseAnimatedLine[1] = protagonist.edges[1].x;
+                protagonist.reverseAnimatedLine[2] = protagonist.edges[2].y;
+                protagonist.reverseAnimatedLine[3] = protagonist.edges[3].x;
+                //                gameState = GAME_OVER;
+                backgroundMusic.stop();
+                /*  if (score > [[userSettings valueForKey:@"highest_score"] intValue]) {
+                 NSLog(@"New High Score, writing...");
+                 achievedHighScore = true;
+                 [userSettings setValue:[NSString stringWithFormat:@"%i", score] forKey:@"highest_score"];
+                 [userSettings synchronize];
+                 }
+                 */
             }
             
             if (progressMarker >= completionAmount) {
-                gameState = WON_TRACK;
-                gameOverGui->setVisible(true);
-
+                gameState = GAINING_MASS;
             }
             
             
             
             break;
+        case UNLOADING_LINES:
+            if (protagonist.collected <= 0) {
+                gameState = GAME_OVER;
+            }
+            break;
+        case GAINING_MASS:
+            if (protagonist.width > ofGetWidth()) {
+                gameState = WON_TRACK;
+                cout << "pro: " << protagonist.width << " w: " << ofGetWidth() << endl;
+            }
+            break;
         case WON_TRACK:
+            enemies.clear();
+            collectables.clear();
+            backgroundMusic.stop();
             won = true;
+            gameState = WAITING_TO_PLAY;
+            gui->setVisible(true);
+            break;
         case GAME_OVER:
             enemies.clear();
             collectables.clear();
+            backgroundMusic.stop();
+            won = false;
+            gameState = WAITING_TO_PLAY;
+            gui->setVisible(true);
+
             break;
             
         default:
@@ -250,13 +296,41 @@ void testApp::draw(){
             for (int i = 0; i < collectables.size(); i++) {
                 collectables[i].display();
             }
-            
+/*
             ofSetColor(0, 0, 0);
             ofFill();
             //going extra long in case of retina
             ofRect(0, ofGetHeight() - 40, ofGetWidth()*2, 60);
             ofSetColor(255, 255, 255);
             textSmall.drawString("EDGES " + ofToString(progressMarker) + " / " + ofToString(completionAmount), 20, ofGetHeight() - 30);
+ */
+            
+            ofSetColor(100,100,100);
+            ofFill();
+            ofRect(0, ofGetHeight()-20, ofGetWidth(), ofGetHeight());
+            //            ofSetColor(20,20,20);
+            //            ofRect(0, 20, ofGetWidth(), ofGetHeight());
+            ofSetColor(83, 222, 57);
+            
+            ofRect(0, ofGetHeight()-20, ofMap(progressMarker, 0, completionAmount, 0, ofGetWidth()), ofGetHeight()-20);
+            
+            ofSetColor(255,255,255);
+            textSmall.drawString(ofToString(int(score)), 5, ofGetHeight() - 35);
+
+            break;
+        case UNLOADING_LINES:
+            protagonist.display();
+            protagonist.loseEdge();
+            break;
+        case GAINING_MASS:
+            ofPushMatrix();
+            ofTranslate(ofGetWidth()/2 - protagonist.width/2, ofGetHeight()/2 - protagonist.height/2);
+            ofRotate(ofGetFrameNum()*4);
+            protagonist.display();
+            protagonist.moveTo(0, 0);
+            protagonist.width+=2;
+            protagonist.height+=2;
+            ofPopMatrix();
             break;
             
         case GAME_OVER:
@@ -301,9 +375,9 @@ void testApp::mouseDragged(int x, int y, int button){
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
     //our crazy control scheme. create spots that we move the protagonist to... everywhere.
-    if (y <= ofGetHeight() - 60) {
+    if (y <= ofGetHeight() - 20) {
         Savior tmpSavior;
-        tmpSavior.create(x,y);
+        tmpSavior.create(x - PROTAGONIST_SIZE/2,y - PROTAGONIST_SIZE/2);
         //comment this out for a weird control scheme :)
         saviors.clear();
         // end

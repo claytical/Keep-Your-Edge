@@ -6,6 +6,43 @@
 
 #include "protagonist.h"
 
+void Protagonist::loseEdge() {
+    lineAnimationSpeed *= 1.1;
+
+    ofSetColor(255, 255, 255);
+    ofNoFill();
+//    ofRect(edges[0].x, reverseAnimatedLine[0],5, 5);
+    ofLine(0, reverseAnimatedLine[0], ofGetWidth(), reverseAnimatedLine[0]);
+    reverseAnimatedLine[0]-= lineAnimationSpeed;
+    if (reverseAnimatedLine[0] <= 0) {
+        reverseAnimatedLine[0] = edges[0].x;
+        collected--;
+        
+    }
+//    ofRect(reverseAnimatedLine[1], edges[1].y, 5, 5);
+    ofLine(reverseAnimatedLine[1], 0, reverseAnimatedLine[1], ofGetHeight());
+    reverseAnimatedLine[1]+= lineAnimationSpeed;
+    if (reverseAnimatedLine[1] >= ofGetWidth()) {
+        reverseAnimatedLine[1] = edges[1].y;
+        collected--;
+    }
+//    ofRect(edges[2].x, reverseAnimatedLine[2], 5, 5);
+    ofLine(0, reverseAnimatedLine[2], ofGetWidth(), reverseAnimatedLine[2]);
+    reverseAnimatedLine[2]+= lineAnimationSpeed;
+    if (animatedLine[2] >= ofGetHeight()) {
+        reverseAnimatedLine[2] = edges[2].x;
+        collected--;
+
+    }
+    ofLine(reverseAnimatedLine[3], 0, reverseAnimatedLine[3], ofGetHeight());
+//    ofRect(reverseAnimatedLine[3], edges[3].y, 5, 5);
+    reverseAnimatedLine[3]-= lineAnimationSpeed;
+    if (reverseAnimatedLine[3] <= 0) {
+        reverseAnimatedLine[3] = edges[3].y;
+        collected--;
+    }
+}
+    
 int Protagonist::collectEdge() {
     for (int i = 0; i < 4; i++) {
         if (lineAnimation[i]) {
@@ -17,6 +54,7 @@ int Protagonist::collectEdge() {
                         lineAnimation[0] = false;
                         edgesCollected++;
                         collectableSound.play();
+                        
                         return 1;
                     }
                     break;
@@ -25,10 +63,10 @@ int Protagonist::collectEdge() {
                     animatedLine[1]-= LINE_ANIMATION_SPEED;
                     if (animatedLine[1] <= edges[1].x) {
                         lineAnimation[1] = false;
-                        collectableSound.play();
-
                         edgesCollected++;
+                        collectableSound.play();
                         return 1;
+
                     }
                     break;
                 case 2:
@@ -36,9 +74,9 @@ int Protagonist::collectEdge() {
                     animatedLine[2]-= LINE_ANIMATION_SPEED;
                     if (animatedLine[2] <= edges[2].y) {
                         lineAnimation[2] = false;
+                        edgesCollected++;
                         collectableSound.play();
 
-                        edgesCollected++;
                         return 1;
                     }
                     break;
@@ -47,9 +85,8 @@ int Protagonist::collectEdge() {
                     animatedLine[3]+= LINE_ANIMATION_SPEED;
                     if (animatedLine[3] >= edges[3].x) {
                         lineAnimation[3] = false;
-                        collectableSound.play();
-
                         edgesCollected++;
+                        collectableSound.play();
                         return 1;
                     }
                     break;
@@ -72,17 +109,20 @@ void Protagonist::display() {
     ofSetColor(r, g, b);
     ofNoFill();
     ofRectRounded(x, y, width, height, sides);
-    ofSetRectMode(OF_RECTMODE_CENTER);
+    ofSetColor(r, g, b, ofMap(sides, HEALTHY, DEAD, 255, 0));
     for (int i = 0; i <= collected; i++) {
+        float newSize = ofMap(i, 0, collected, 0, width/2);
+        if (newSize > 1) {
+            ofLine(x + spacer, y + newSize, x + width - spacer, y + newSize);
+            ofLine(x + spacer, y + height - newSize, x + width - spacer, y + height - newSize);
+            
+            ofLine(x + newSize, y + spacer, x + newSize, y + height - spacer);
+            ofLine(x + width - newSize, y + spacer, x + width - newSize, y + height - spacer);
+        }
+     }
 
-        float newSize = ofMap(i, 0, collected, 0, width);
-        ofRectRounded(x + width/2, y + height/2, newSize, newSize, sides);
-    }
-    ofSetRectMode(OF_RECTMODE_CORNER);
     ofFill();
     ofSetColor(127);
-    //collectEdge();
-
 }
 
 void Protagonist::moveTo(int xPos, int yPos) {
@@ -99,13 +139,12 @@ void Protagonist::moveTo(int xPos, int yPos) {
 
 
 void Protagonist::create(int _x, int _y, int _size) {
+    lineAnimationSpeed = LINE_ANIMATION_SPEED;
+    collectableSound.loadSound("edge.caf");
+    collectableSound.setVolume(.2);
     r = 255;
     g = 255;
     b = 255;
-    collectableSound.loadSound("edge.wav");
-    
-    collectableSound.setVolume(.2);
-
     x = _x;
     y = _y;
     collected = 0;
@@ -116,6 +155,11 @@ void Protagonist::create(int _x, int _y, int _size) {
     width = _size;
     height = _size;
     sides = HEALTHY;
+    spacer = 4;
+    reverseAnimatedLine[0] = 0;
+    reverseAnimatedLine[1] = ofGetWidth();
+    reverseAnimatedLine[2] = ofGetHeight();
+    reverseAnimatedLine[3] = 0;
 
 }
 
@@ -137,24 +181,22 @@ bool Protagonist::collide(Collectable c) {
     
     return true;
 
- }
+}
 
 bool Protagonist::collide(Enemy e) {
 
     if (e.hit) {
-        cout << "already hit enemy" << endl;
         return false;
     }
-    //enemy is circle
-    //protagonist is square
-
+    
+    
     if (ofDist(e.x, e.y, x, y) <= e.radius || ofDist(e.x, e.y, x + width, y + height) <= e.radius) {
         return true;
     }
     else {
         return false;
     }
- }
+}
 
 void Protagonist::change(int amount) {
     sides = sides + amount%20;

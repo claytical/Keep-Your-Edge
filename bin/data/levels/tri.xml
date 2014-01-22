@@ -1,0 +1,71 @@
+<level>
+    <name>New Level</name>
+    <speed>1</speed>
+</level>
+<enemy>
+    <x>70.000000000</x>
+    <y>-130.000000000</y>
+    <type>1</type>
+    <size>61</size>
+</enemy>
+<enemy>
+    <x>70.000000000</x>
+    <y>-130.000000000</y>
+    <size>61</size>
+</enemy>
+<enemy>
+    <x>250.000000000</x>
+    <y>-130.000000000</y>
+    <size>61</size>
+</enemy>
+<enemy>
+    <x>160.000000000</x>
+    <y>-320.000000000</y>
+    <size>61</size>
+</enemy>
+<collectable>
+    <x>60.000000000</x>
+    <y>-460.000000000</y>
+    <type>1</type>
+    <size>27</size>
+</collectable>
+<collectable>
+    <x>160.000000000</x>
+    <y>-460.000000000</y>
+    <size>27</size>
+</collectable>
+<collectable>
+    <x>260.000000000</x>
+    <y>-460.000000000</y>
+    <size>27</size>
+</collectable>
+<enemy>
+    <x>160.000000000</x>
+    <y>-630.000000000</y>
+    <size>61</size>
+</enemy>
+<enemy>
+    <x>70.000000000</x>
+    <y>-820.000000000</y>
+    <size>61</size>
+</enemy>
+<enemy>
+    <x>250.000000000</x>
+    <y>-820.000000000</y>
+    <size>61</size>
+</enemy>
+<collectable>
+    <x>260.000000000</x>
+    <y>-980.000000000</y>
+    <size>27</size>
+</collectable>
+<collectable>
+    <x>160.000000000</x>
+    <y>-980.000000000</y>
+    <size>27</size>
+</collectable>
+<collectable>
+    <x>60.000000000</x>
+    <y>-980.000000000</y>
+    <size>27</size>
+</collectable>

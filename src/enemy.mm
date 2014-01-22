@@ -12,9 +12,9 @@ void Enemy::create(float _x, float _y, float _speed, int _radius) {
     hit = false;
     radius = _radius;
     speed = _speed;
-    r = 255;
+    r = ofRandom(127,255);
     g = 0;
-    b = 0;
+    b = ofRandom(0,127);
     distanceToProtagonist = 999999;
 }
 

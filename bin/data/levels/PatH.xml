@@ -1,0 +1,91 @@
+<collectable>
+    <x>60.000000000</x>
+    <y>-260.000000000</y>
+    <type>1</type>
+    <size>30.000000000</size>
+</collectable>
+<collectable>
+    <x>60.000000000</x>
+    <y>-230.000000000</y>
+    <size>30.000000000</size>
+</collectable>
+<collectable>
+    <x>60.000000000</x>
+    <y>-200.000000000</y>
+    <size>30.000000000</size>
+</collectable>
+<collectable>
+    <x>60.000000000</x>
+    <y>-170.000000000</y>
+    <size>30.000000000</size>
+</collectable>
+<collectable>
+    <x>60.000000000</x>
+    <y>-140.000000000</y>
+    <size>30.000000000</size>
+</collectable>
+<collectable>
+    <x>60.000000000</x>
+    <y>-110.000000000</y>
+    <size>30.000000000</size>
+</collectable>
+<collectable>
+    <x>60.000000000</x>
+    <y>-80.000000000</y>
+    <size>30.000000000</size>
+</collectable>
+<collectable>
+    <x>90.000000000</x>
+    <y>-170.000000000</y>
+    <size>30.000000000</size>
+</collectable>
+<collectable>
+    <x>120.000000000</x>
+    <y>-170.000000000</y>
+    <size>30.000000000</size>
+</collectable>
+<collectable>
+    <x>150.000000000</x>
+    <y>-170.000000000</y>
+    <size>30.000000000</size>
+</collectable>
+<collectable>
+    <x>180.000000000</x>
+    <y>-170.000000000</y>
+    <size>30.000000000</size>
+</collectable>
+<collectable>
+    <x>210.000000000</x>
+    <y>-200.000000000</y>
+    <size>30.000000000</size>
+</collectable>
+<collectable>
+    <x>210.000000000</x>
+    <y>-230.000000000</y>
+    <size>30.000000000</size>
+</collectable>
+<collectable>
+    <x>210.000000000</x>
+    <y>-260.000000000</y>
+    <size>30.000000000</size>
+</collectable>
+<collectable>
+    <x>210.000000000</x>
+    <y>-170.000000000</y>
+    <size>30.000000000</size>
+</collectable>
+<collectable>
+    <x>210.000000000</x>
+    <y>-140.000000000</y>
+    <size>30.000000000</size>
+</collectable>
+<collectable>
+    <x>210.000000000</x>
+    <y>-110.000000000</y>
+    <size>30.000000000</size>
+</collectable>
+<collectable>
+    <x>210.000000000</x>
+    <y>-80.000000000</y>
+    <size>30.000000000</size>
+</collectable>

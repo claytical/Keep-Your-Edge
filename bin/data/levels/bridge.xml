@@ -1,0 +1,211 @@
+<level>
+    <name>New Level</name>
+    <speed>1</speed>
+</level>
+<enemy>
+    <x>160.000000000</x>
+    <y>-460.000000000</y>
+    <type>1</type>
+    <size>60.000000000</size>
+</enemy>
+<enemy>
+    <x>70.000000000</x>
+    <y>-610.000000000</y>
+    <size>60.000000000</size>
+</enemy>
+<enemy>
+    <x>250.000000000</x>
+    <y>-610.000000000</y>
+    <size>60.000000000</size>
+</enemy>
+<enemy>
+    <x>290.000000000</x>
+    <y>-730.000000000</y>
+    <size>30.000000000</size>
+</enemy>
+<enemy>
+    <x>290.000000000</x>
+    <y>-800.000000000</y>
+    <size>30.000000000</size>
+</enemy>
+<enemy>
+    <x>100.000000000</x>
+    <y>-720.000000000</y>
+    <size>30.000000000</size>
+</enemy>
+<enemy>
+    <x>100.000000000</x>
+    <y>-790.000000000</y>
+    <size>30.000000000</size>
+</enemy>
+<enemy>
+    <x>140.000000000</x>
+    <y>-850.000000000</y>
+    <size>30.000000000</size>
+</enemy>
+<enemy>
+    <x>290.000000000</x>
+    <y>-870.000000000</y>
+    <size>30.000000000</size>
+</enemy>
+<enemy>
+    <x>190.000000000</x>
+    <y>-900.000000000</y>
+    <size>30.000000000</size>
+</enemy>
+<enemy>
+    <x>290.000000000</x>
+    <y>-930.000000000</y>
+    <size>20.000000000</size>
+</enemy>
+<enemy>
+    <x>180.000000000</x>
+    <y>-960.000000000</y>
+    <size>20.000000000</size>
+</enemy>
+<enemy>
+    <x>150.000000000</x>
+    <y>-990.000000000</y>
+    <size>10.000000000</size>
+</enemy>
+<enemy>
+    <x>120.000000000</x>
+    <y>-1010.000000000</y>
+    <size>10.000000000</size>
+</enemy>
+<enemy>
+    <x>270.000000000</x>
+    <y>-970.000000000</y>
+    <size>10.000000000</size>
+</enemy>
+<enemy>
+    <x>240.000000000</x>
+    <y>-1010.000000000</y>
+    <size>10.000000000</size>
+</enemy>
+<enemy>
+    <x>150.000000000</x>
+    <y>-1160.000000000</y>
+    <size>60.000000000</size>
+</enemy>
+<enemy>
+    <x>70.000000000</x>
+    <y>-1230.000000000</y>
+    <size>40.000000000</size>
+</enemy>
+<collectable>
+    <x>10.000000000</x>
+    <y>-140.000000000</y>
+    <type>1</type>
+    <size>80.000000000</size>
+</collectable>
+<collectable>
+    <x>230.000000000</x>
+    <y>-140.000000000</y>
+    <size>80.000000000</size>
+</collectable>
+<collectable>
+    <x>120.000000000</x>
+    <y>-240.000000000</y>
+    <size>80.000000000</size>
+</collectable>
+<collectable>
+    <x>20.000000000</x>
+    <y>-340.000000000</y>
+    <size>80.000000000</size>
+</collectable>
+<collectable>
+    <x>230.000000000</x>
+    <y>-340.000000000</y>
+    <size>80.000000000</size>
+</collectable>
+<collectable>
+    <x>90.000000000</x>
+    <y>-960.000000000</y>
+    <size>50.000000000</size>
+</collectable>
+<collectable>
+    <x>20.000000000</x>
+    <y>-960.000000000</y>
+    <size>50.000000000</size>
+</collectable>
+<collectable>
+    <x>30.000000000</x>
+    <y>-890.000000000</y>
+    <size>50.000000000</size>
+</collectable>
+<collectable>
+    <x>30.000000000</x>
+    <y>-1030.000000000</y>
+    <size>50.000000000</size>
+</collectable>
+<collectable>
+    <x>20.000000000</x>
+    <y>-1090.000000000</y>
+    <size>50.000000000</size>
+</collectable>
+<collectable>
+    <x>10.000000000</x>
+    <y>-1130.000000000</y>
+    <size>30.000000000</size>
+</collectable>
+<collectable>
+    <x>0.000000000</x>
+    <y>-1160.000000000</y>
+    <size>20.000000000</size>
+</collectable>
+<collectable>
+    <x>90.000000000</x>
+    <y>-900.000000000</y>
+    <size>20.000000000</size>
+</collectable>
+<collectable>
+    <x>50.000000000</x>
+    <y>-830.000000000</y>
+    <size>20.000000000</size>
+</collectable>
+<collectable>
+    <x>40.000000000</x>
+    <y>-800.000000000</y>
+    <size>10.000000000</size>
+</collectable>
+<collectable>
+    <x>290.000000000</x>
+    <y>-990.000000000</y>
+    <size>20.000000000</size>
+</collectable>
+<collectable>
+    <x>260.000000000</x>
+    <y>-1020.000000000</y>
+    <size>20.000000000</size>
+</collectable>
+<collectable>
+    <x>290.000000000</x>
+    <y>-1020.000000000</y>
+    <size>20.000000000</size>
+</collectable>
+<collectable>
+    <x>270.000000000</x>
+    <y>-1060.000000000</y>
+    <size>30.000000000</size>
+</collectable>
+<collectable>
+    <x>280.000000000</x>
+    <y>-1100.000000000</y>
+    <size>30.000000000</size>
+</collectable>
+<collectable>
+    <x>280.000000000</x>
+    <y>-1140.000000000</y>
+    <size>30.000000000</size>
+</collectable>
+<collectable>
+    <x>270.000000000</x>
+    <y>-1190.000000000</y>
+    <size>40.000000000</size>
+</collectable>
+<collectable>
+    <x>250.000000000</x>
+    <y>-1260.000000000</y>
+    <size>60.000000000</size>
+</collectable>

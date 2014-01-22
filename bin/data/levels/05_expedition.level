@@ -1,0 +1,8 @@
+<name>The Expedition</name>
+<author>Clay Ewing</author>
+<complete>150</complete>
+<speed>-.95</speed>
+<leaderboard>expedition</leaderboard>
+<multiplier>1.01</multiplier>
+<file>expedition.xml</file>
+<file>expedition2.xml</file>

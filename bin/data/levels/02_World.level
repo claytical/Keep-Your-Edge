@@ -1,0 +1,10 @@
+<name>World</name>
+<author>Criaalikaa</author>
+<complete>300</complete>
+<speed>-1.45</speed>
+<leaderboard>world</leaderboard>
+<multiplier>1.25</multiplier>
+<file>Pat05.xml</file>
+<file>Pat01.xml</file>
+<file>Pat03.xml</file>
+<file>Pat04.xml</file>

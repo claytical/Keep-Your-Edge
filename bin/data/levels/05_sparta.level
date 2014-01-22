@@ -1,0 +1,9 @@
+<name>Sparta</name>
+<author>Clay Ewing</author>
+<complete>80</complete>
+<speed>-1.15</speed>
+<leaderboard>sparta</leaderboard>
+<multiplier>1.4</multiplier>
+<file>bigcircles.xml</file>
+<file>minefields.xml</file>
+<file>columns.xml</file>
