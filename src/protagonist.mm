@@ -11,7 +11,6 @@ void Protagonist::loseEdge() {
 
     ofSetColor(255, 255, 255);
     ofNoFill();
-//    ofRect(edges[0].x, reverseAnimatedLine[0],5, 5);
     ofLine(0, reverseAnimatedLine[0], ofGetWidth(), reverseAnimatedLine[0]);
     reverseAnimatedLine[0]-= lineAnimationSpeed;
     if (reverseAnimatedLine[0] <= 0) {
@@ -19,14 +18,12 @@ void Protagonist::loseEdge() {
         collected--;
         
     }
-//    ofRect(reverseAnimatedLine[1], edges[1].y, 5, 5);
     ofLine(reverseAnimatedLine[1], 0, reverseAnimatedLine[1], ofGetHeight());
     reverseAnimatedLine[1]+= lineAnimationSpeed;
     if (reverseAnimatedLine[1] >= ofGetWidth()) {
         reverseAnimatedLine[1] = edges[1].y;
         collected--;
     }
-//    ofRect(edges[2].x, reverseAnimatedLine[2], 5, 5);
     ofLine(0, reverseAnimatedLine[2], ofGetWidth(), reverseAnimatedLine[2]);
     reverseAnimatedLine[2]+= lineAnimationSpeed;
     if (animatedLine[2] >= ofGetHeight()) {
@@ -35,7 +32,6 @@ void Protagonist::loseEdge() {
 
     }
     ofLine(reverseAnimatedLine[3], 0, reverseAnimatedLine[3], ofGetHeight());
-//    ofRect(reverseAnimatedLine[3], edges[3].y, 5, 5);
     reverseAnimatedLine[3]-= lineAnimationSpeed;
     if (reverseAnimatedLine[3] <= 0) {
         reverseAnimatedLine[3] = edges[3].y;

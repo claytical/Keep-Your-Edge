@@ -16,11 +16,36 @@
 #define PROTAGONIST_SIZE    25
 //--------------------------------------------------------------
 void testApp::setup(){
+    ofEnableTextureEdgeHack();
+    ofEnableSmoothing();
+    ofEnableAlphaBlending();
     
     float xInit = OFX_UI_GLOBAL_WIDGET_SPACING;
     float length = 320;
-    gui = new ofxUICanvas();
-    gui->setFont("cdb.ttf");
+    ofSetRectMode(OF_RECTMODE_CORNER);
+    textBig.loadFont("cdb.ttf",30);
+    textSmall.loadFont("cdb.ttf",11);
+    textBig.setLetterSpacing(1);
+    enemySound.loadSound("circle.wav");
+    movementSound.loadSound("click.caf");
+    collectableSound.loadSound("square.wav");
+    movingSound.loadSound("click.wav");
+    gameState = WAITING_TO_PLAY;
+    currentPattern = 0;
+    backgroundMusic.setVolume(1);
+    collectableSound.setVolume(.2);
+
+    /* turn the volume down for effects */
+    movementSound.setVolume(.2);
+    movingSound.setVolume(.2);
+    collectableSound.setVolume(.2);
+    
+    /* load the background music */
+    gameState = WAITING_TO_PLAY;
+    currentPattern = 0;
+
+    
+    /* LOAD LEVELS */
     dir.allowExt("level"); //only allow .level files
     dir.listDir("levels/");
 	dir.sort(); // in linux the file system doesn't return file lists ordered in alphabetical order
@@ -31,53 +56,39 @@ void testApp::setup(){
         levels.push_back(dir.getFile(i).getBaseName());
 	}
 
+    gui = new ofxUICanvas();
+    gui->setFont("cdb.ttf");
+    
+    /* MAIN MENU */
+
     gui->autoSizeToFitWidgets();
-    gui->setPosition(0, ofGetHeight()/2);
+    gui->setPosition(0, 70);
     gui->setWidth(ofGetWidth());
+    playButton = gui->addLabelButton("play", false);
+
+    gui->addSpacer(0, 50);
+    gui->addLabel("Choose a Level");
+    ddl = gui->addDropDownList("levels", levels);
+    
+    ddl->setAllowMultiple(false);
+    ddl->setAutoClose(true);
+    ddl->setShowCurrentSelected(true);
+    gui->setTheme(OFX_UI_THEME_COOLCLAY);
+    gui->autoSizeToFitWidgets();
+    
+    /* GAME OVER GUI */
+    
     gameOverGui = new ofxUICanvas();
-    gameOverGui->setPosition(0, ofGetHeight()/2 + 60);
+    gameOverGui->setPosition(0, 120);
     gameOverGui->setWidth(ofGetWidth());
     mainMenuButton = gameOverGui->addLabelButton("main menu", false);
     gameOverGui->setTheme(OFX_UI_THEME_BERLIN);
     gameOverGui->autoSizeToFitWidgets();
     gameOverGui->setVisible(false);
 
-    playButton = gui->addLabelButton("play", false);
-    ddl = gui->addDropDownList("levels", levels);
-
-    ddl->setAllowMultiple(false);
-    ddl->setAutoClose(true);
-    ddl->setShowCurrentSelected(true);
-    gui->setTheme(OFX_UI_THEME_COOLCLAY);
-    gui->autoSizeToFitWidgets();
     ofAddListener(gui->newGUIEvent, this, &testApp::guiEvent);
     ofAddListener(gameOverGui->newGUIEvent, this, &testApp::guiEvent);
-	ofEnableSmoothing();
-    ofSetRectMode(OF_RECTMODE_CORNER);
-    textBig.loadFont("cdb.ttf",30);
-    textSmall.loadFont("cdb.ttf",11);
-    textBig.setLetterSpacing(1);
-    ofEnableTextureEdgeHack();
-    ofEnableSmoothing();
-    ofEnableAlphaBlending();
-    enemySound.loadSound("circle.wav");
-    movementSound.loadSound("click.caf");
-    collectableSound.loadSound("square.wav");
-    movingSound.loadSound("click.wav");
-    gameState = WAITING_TO_PLAY;
-    currentPattern = 0;
-    backgroundMusic.setVolume(1);
-    collectableSound.setVolume(.2);
 
-/* load sound effects */
-/* turn the volume down for effects */
-    movementSound.setVolume(.2);
-    movingSound.setVolume(.2);
-    collectableSound.setVolume(.2);
-    
-/* load the background music */
-    gameState = WAITING_TO_PLAY;
-    currentPattern = 0;
 
 }
 
@@ -95,7 +106,6 @@ void testApp::loadLevel(string levelName) {
 
         //load values from the xml files, use defaults if they don't exist
         speed = XML.getValue("speed", -1);
-//        backgroundMusic.setSpeed(abs(speed));
         multiplier = XML.getValue("multiplier", 1.08);
         completionAmount = XML.getValue("complete", 10);
         for (int i = 0; i < XML.getNumTags("file"); i++) {
@@ -149,6 +159,7 @@ void testApp::update(){
     }
     //remove the point once reached
     ofRemove(saviors, consumed);
+    //select some random music
     int bgSelection = int(ofRandom(1, 4));
     if (bgSelection == 4) {
         bgSelection = 3;
@@ -216,15 +227,7 @@ void testApp::update(){
                 protagonist.reverseAnimatedLine[1] = protagonist.edges[1].x;
                 protagonist.reverseAnimatedLine[2] = protagonist.edges[2].y;
                 protagonist.reverseAnimatedLine[3] = protagonist.edges[3].x;
-                //                gameState = GAME_OVER;
                 backgroundMusic.stop();
-                /*  if (score > [[userSettings valueForKey:@"highest_score"] intValue]) {
-                 NSLog(@"New High Score, writing...");
-                 achievedHighScore = true;
-                 [userSettings setValue:[NSString stringWithFormat:@"%i", score] forKey:@"highest_score"];
-                 [userSettings synchronize];
-                 }
-                 */
             }
             
             if (progressMarker >= completionAmount) {
@@ -296,20 +299,10 @@ void testApp::draw(){
             for (int i = 0; i < collectables.size(); i++) {
                 collectables[i].display();
             }
-/*
-            ofSetColor(0, 0, 0);
-            ofFill();
-            //going extra long in case of retina
-            ofRect(0, ofGetHeight() - 40, ofGetWidth()*2, 60);
-            ofSetColor(255, 255, 255);
-            textSmall.drawString("EDGES " + ofToString(progressMarker) + " / " + ofToString(completionAmount), 20, ofGetHeight() - 30);
- */
             
             ofSetColor(100,100,100);
             ofFill();
             ofRect(0, ofGetHeight()-20, ofGetWidth(), ofGetHeight());
-            //            ofSetColor(20,20,20);
-            //            ofRect(0, 20, ofGetWidth(), ofGetHeight());
             ofSetColor(83, 222, 57);
             
             ofRect(0, ofGetHeight()-20, ofMap(progressMarker, 0, completionAmount, 0, ofGetWidth()), ofGetHeight()-20);

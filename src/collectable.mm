@@ -30,9 +30,6 @@ void Collectable::display() {
         ofSetColor(r, g, b, 150);
     }
     if (collected) {
-        //x+= cos(ofRadToDeg(width)) * width/2;
-        //y+= sin(ofRadToDeg(width)) * width/2;
-       // width-= 1;
     }
     else {
         ofRect(x, y, width, height);

@@ -26,51 +26,54 @@ class testApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
         void loadLevel(string levelName);
-        vector<string>patterns;
-        
+        void loadPattern(int pattern);
+        void exit();
+        void guiEvent(ofxUIEventArgs &e);
+
         static bool consumed(Savior &savior);
         static bool collected(Collectable &collectable);
         static bool passedGateway(Enemy &enemy);
         
         
-        void loadPattern(int pattern);
+    
+        vector<string>patterns;
         ofxUICanvas *gui;
-   // ofxUIScrollableCanvas *gui;
         ofxUICanvas *gameOverGui;
         ofxUIDropDownList *ddl;
         ofxUILabel *titleLabel;
         ofxUILabelButton *playButton;
         ofxUILabelButton *mainMenuButton;
-        void exit();
-        void guiEvent(ofxUIEventArgs &e);
-
-    
         ofxXmlSettings XML;
         ofxXmlSettings XMLLevel;
-        Protagonist protagonist;
-        vector<Savior> saviors;
+        ofDirectory dir;
     
         ofSoundPlayer movementSound;
         ofSoundPlayer movingSound;
-        
-        vector<Enemy> enemies;
         ofSoundPlayer enemySound;
-        
-        vector<Collectable> collectables;
         ofSoundPlayer collectableSound;
         ofSoundPlayer backgroundMusic;
-        
-        int progressMarker, completionAmount;
-        float speed, multiplier;
-        int healCounter;
+    
         ofxCenteredTrueTypeFont textBig;
         ofxCenteredTrueTypeFont textSmall;
-        bool won;
-        float score;
-        int gameState;
+    
+        Protagonist protagonist;
+        vector<Enemy> enemies;
+        vector<Collectable> collectables;
+        vector<Savior> saviors;
+
+    
         string selectedTrack;
+    
+        int progressMarker, completionAmount;
+        int healCounter;
+        int gameState;
         int currentPattern;
+
+        float speed, multiplier;
+        float score;
+    
+        bool won;
         bool achievedHighScore;
-        ofDirectory dir;
+
 
 };

@@ -6,7 +6,6 @@
 
 #pragma once
 #include "ofMain.h"
-//#include "ofxRetinaImage.h"
 #include "collectable.h"
 #include "enemy.h"
 

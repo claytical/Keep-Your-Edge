@@ -6,7 +6,6 @@
 
 #pragma once
 #include "ofMain.h"
-//#include "ofxRetinaImage.h"
 
 class Enemy {
 public:
@@ -19,7 +18,5 @@ public:
 	int radius;
     float distanceToProtagonist;
     bool hit;
-//    ofxRetinaImage *image;
-
     int speed;
 };
