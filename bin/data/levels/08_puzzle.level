@@ -1,8 +1,0 @@
-<name>Puzzled</name>
-<author>Clay Ewing</author>
-<complete>90</complete>
-<leaderboard>puzzled</leaderboard>
-<speed>-1.1</speed>
-<multiplier>1.01</multiplier>
-<file>puzzle.xml</file>
-<file>puzzle2.xml</file>

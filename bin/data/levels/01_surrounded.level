@@ -1,9 +1,0 @@
-<name>Surrounded</name>
-<author>Sean Wilkinson</author>
-<complete>80</complete>
-<speed>-1</speed>
-<leaderboard>surrounded</leaderboard>
-<multiplier>1.2</multiplier>
-<file>surrounded.xml</file>
-<file>mid.xml</file>
-<file>surrounded.xml</file>

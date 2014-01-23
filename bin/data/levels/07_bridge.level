@@ -1,8 +1,0 @@
-<name>Bridging the Gap</name>
-<author>Clay Ewing</author>
-<complete>100</complete>
-<leaderboard>bridging</leaderboard>
-<speed>-1.1</speed>
-<multiplier>1.2</multiplier>
-<file>bridge.xml</file>
-<file>columns.xml</file>
