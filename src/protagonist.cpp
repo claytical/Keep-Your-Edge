@@ -16,7 +16,7 @@ void Protagonist::loseEdge() {
     if (reverseAnimatedLine[0] <= 0) {
         reverseAnimatedLine[0] = edges[0].x;
         collected--;
-        
+
     }
     ofLine(reverseAnimatedLine[1], 0, reverseAnimatedLine[1], ofGetHeight());
     reverseAnimatedLine[1]+= lineAnimationSpeed;
@@ -38,7 +38,7 @@ void Protagonist::loseEdge() {
         collected--;
     }
 }
-    
+
 int Protagonist::collectEdge() {
     for (int i = 0; i < 4; i++) {
         if (lineAnimation[i]) {
@@ -50,7 +50,7 @@ int Protagonist::collectEdge() {
                         lineAnimation[0] = false;
                         edgesCollected++;
                         collectableSound.play();
-                        
+
                         return 1;
                     }
                     break;
@@ -92,7 +92,7 @@ int Protagonist::collectEdge() {
         }
     }
     return 0;
-    
+
 }
 
 void Protagonist::display() {
@@ -106,15 +106,20 @@ void Protagonist::display() {
     ofNoFill();
     ofRectRounded(x, y, width, height, sides);
     ofSetColor(r, g, b, ofMap(sides, HEALTHY, DEAD, 255, 0));
+
     for (int i = 0; i <= collected; i++) {
-        float newSize = ofMap(i, 0, collected, 0, width/2);
+        float newSize = 0;
+        if (collected > 0) {
+            newSize = ofMap(i, 0, collected, 0, width/2);
+        }
         if (newSize > 1) {
             ofLine(x + spacer, y + newSize, x + width - spacer, y + newSize);
             ofLine(x + spacer, y + height - newSize, x + width - spacer, y + height - newSize);
-            
+
             ofLine(x + newSize, y + spacer, x + newSize, y + height - spacer);
             ofLine(x + width - newSize, y + spacer, x + width - newSize, y + height - spacer);
         }
+
      }
 
     ofFill();
@@ -130,7 +135,7 @@ void Protagonist::moveTo(int xPos, int yPos) {
     edges[1].set(x+width, y);
     edges[2].set(x+width, y+height);
     edges[3].set(x, y+height);
-    
+
 }
 
 
@@ -173,8 +178,8 @@ bool Protagonist::collide(Collectable c) {
     for (int i = 0; i < 4; i++) {
         lineAnimation[i] = true;
     }
-    
-    
+
+
     return true;
 
 }
@@ -184,8 +189,8 @@ bool Protagonist::collide(Enemy e) {
     if (e.hit) {
         return false;
     }
-    
-    
+
+
     if (ofDist(e.x, e.y, x, y) <= e.radius || ofDist(e.x, e.y, x + width, y + height) <= e.radius) {
         return true;
     }
